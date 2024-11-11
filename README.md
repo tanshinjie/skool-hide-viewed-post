@@ -6,7 +6,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/tanshinjie/skool-hide-viewed-post">
-    <img src="src/icon.png" alt="Logo" width="160" height="160">
+    <img src="media/icon-1080.png" alt="Logo" width="160" height="160">
   </a>
 
   <h3 align="center">1 Click Skool Group Count</h3>
