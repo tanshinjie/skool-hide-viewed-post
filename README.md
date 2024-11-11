@@ -1,5 +1,3 @@
-# TODO
-
 <a id="readme-top"></a>
 
 <!-- PROJECT LOGO -->
