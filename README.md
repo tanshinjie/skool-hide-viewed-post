@@ -17,11 +17,11 @@
     <!-- TODO: Update extension link -->
     <a href="https://github.com/tanshinjie/skool-hide-viewed-post">Install Extension</a>
     <br />
-    <a href="https://github.com/tanshinjie/skool-hide-viewed-post">View Demo</a>
+    <a href="https://www.youtube.com/watch?v=9EIO45_bgT0">View Demo</a>
     ·
-    <a href="https://github.com/tanshinjie/skool-hide-viewed-post/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
+    <a href="https://forms.gle/qpzjd2rsAopHtuhP9">Report Bug</a>
     ·
-    <a href="https://github.com/tanshinjie/skool-hide-viewed-post/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
+    <a href="https://forms.gle/qpzjd2rsAopHtuhP9">Request Feature</a>
   </p>
 </div>
 
