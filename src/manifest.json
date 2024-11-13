@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Skool Hide Viewed Post",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Increase contrast between read and unread posts on Skool to make it easier to see what you've already read.",
   "action": {},
   "content_scripts": [
