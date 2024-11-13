@@ -1,4 +1,4 @@
-console.log("[Skool Read Post Enhancer] Background script running...");
+console.log("[Skool Hide Viewed Post] Background script running...");
 let nextState = "OFF";
 
 async function executeContentScript(tab) {
@@ -14,11 +14,10 @@ async function executeContentScript(tab) {
     text: nextState,
   });
 
-  console.log(
-    "[Skool Read Post Enhancer] Sending message to content script..."
-  );
+  console.log("[Skool Hide Viewed Post] Sending message to content script...");
   chrome.tabs.sendMessage(tab.id, {
     toggle: nextState === "ON",
+    action: "init",
   });
 }
 
@@ -33,9 +32,10 @@ if (chrome.action && chrome.action.onClicked) {
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo) {
   // read changeInfo data and do something with it (like read the url)
   if (changeInfo.status === "complete") {
-    console.log("[Skool Read Post Enhancer] Tab updated, sending init request");
+    console.log("[Skool Hide Viewed Post] Tab updated, sending init request");
     chrome.tabs.sendMessage(tabId, {
       toggle: nextState === "ON",
+      action: "update",
     });
   }
 });
