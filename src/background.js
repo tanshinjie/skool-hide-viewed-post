@@ -29,19 +29,24 @@ if (chrome.action && chrome.action.onClicked) {
   chrome.browserAction.onClicked.addListener(executeContentScript);
 }
 
-chrome.tabs.onUpdated.addListener(function (tabId, changeInfo) {
+chrome.tabs.onUpdated.addListener(async function (tabId, changeInfo) {
   // read changeInfo data and do something with it (like read the url)
   if (changeInfo.status === "complete") {
     console.log("[Skool Hide Viewed Post] Tab updated, sending init request");
+
     chrome.tabs.sendMessage(tabId, {
       toggle: nextState === "ON",
       action: "update",
     });
+    chrome.action.setBadgeText({
+      text: nextState,
+    });
   }
 });
 
-chrome.runtime.onInstalled.addListener(() => {
+chrome.runtime.onInstalled.addListener(async () => {
+  console.log("[Skool Hide Viewed Post] Extension installed");
   chrome.action.setBadgeText({
-    text: "OFF",
+    text: nextState,
   });
 });
