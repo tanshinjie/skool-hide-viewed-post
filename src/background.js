@@ -1,30 +1,24 @@
 console.log("[Skool Hide Viewed Post] Background script running...");
-let nextState = "OFF";
 
 async function executeContentScript(tab) {
-  // Function to send a message if the active tab is on www.skool.com
+  const result = await getLocalStorageValue("isActivated");
+
+  let oldState = result.isActivated;
+  let newState = !oldState;
+
   try {
-    // Send a message to the content script
-    console.log("Trigger content script...", tab);
-
-    // Retrieve the action badge to check if the extension is 'ON' or 'OFF'
-    const prevState = await chrome.action.getBadgeText({ tabId: tab.id });
-    // Next state will always be the opposite
-    nextState = prevState === "ON" ? "OFF" : "ON";
-
-    console.log(
-      "[Skool Hide Viewed Post] Sending message to content script..."
-    );
     chrome.tabs.sendMessage(tab.id, {
-      toggle: nextState === "ON",
+      toggle: newState,
       action: "init",
     });
 
     // Set the action badge to the next state
-    await chrome.action.setBadgeText({
+    chrome.action.setBadgeText({
       tabId: tab.id,
-      text: nextState,
+      text: newState ? "ON" : "OFF",
     });
+
+    chrome.storage.sync.set({ isActivated: newState });
   } catch (error) {
     console.log("Error:", error);
     console.log("Assuming not on www.skool.com, skipping message.");
@@ -44,15 +38,29 @@ chrome.tabs.onUpdated.addListener(async function (tabId, changeInfo) {
   if (changeInfo.status === "complete") {
     console.log("[Skool Hide Viewed Post] Tab updated, sending init request");
 
+    const result = await getLocalStorageValue("isActivated");
+
     chrome.tabs.sendMessage(tabId, {
-      toggle: nextState === "ON",
+      toggle: result.isActivated,
       action: "update",
     });
     chrome.action.setBadgeText({
-      text: nextState,
+      text: result.isActivated ? "ON" : "OFF",
     });
   }
 });
+
+async function getLocalStorageValue(key) {
+  return new Promise((resolve, reject) => {
+    try {
+      chrome.storage.sync.get(key, function (value) {
+        resolve(value);
+      });
+    } catch (ex) {
+      reject(ex);
+    }
+  });
+}
 
 function isTabOnSkool(tabUrl) {
   try {
@@ -65,9 +73,11 @@ function isTabOnSkool(tabUrl) {
 }
 
 chrome.runtime.onInstalled.addListener(async () => {
-  console.log("[Skool Hide Viewed Post] Extension installed");
-  chrome.storage.sync.set({ shouldHideNewComment: false });
+  await chrome.storage.sync.set({
+    shouldHideNewComment: false,
+    isActivated: false,
+  });
   chrome.action.setBadgeText({
-    text: nextState,
+    text: "OFF",
   });
 });
