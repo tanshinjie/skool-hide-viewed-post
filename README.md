@@ -12,8 +12,7 @@
   <p align="center">
     Easily view number of groups under each category on Skool.
     <br />
-    <!-- TODO: Update extension link -->
-    <a href="https://github.com/tanshinjie/skool-hide-viewed-post">Install Extension</a>
+    <a href="https://chromewebstore.google.com/detail/skool-hide-viewed-post/jlijcggjbdakecagcapdnokcpmieahel">Install Extension</a>
     <br />
     <a href="https://www.youtube.com/watch?v=9EIO45_bgT0">View Demo</a>
     ·
